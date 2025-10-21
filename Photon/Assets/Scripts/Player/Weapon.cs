@@ -4,7 +4,6 @@ using TMPro;
 using Photon.Pun;
 using UnityEngine.UI;
 using DG.Tweening;
-using Photon.Pun.UtilityScripts;
 
 public class Weapon : MonoBehaviour
 {
@@ -19,19 +18,26 @@ public class Weapon : MonoBehaviour
     [SerializeField, Range(0f, 2f)] private float recoilBack = 0.5f;
     [SerializeField, Range(0f, 1f)] private float recoverSpeed = 0.15f;
 
-    private Vector3 originalLocalPos;
+    [Header("References")]
+    public Camera fpsCam;
+
+    private float nextTimeToFire = 0f;
 
     [Header("Ammo")]
     [SerializeField] private int magSize = 30;
     [SerializeField] private int reserveAmmo = 120;
     private int currentAmmo;
-    private int maxAmmo;
     private bool isReloading = false;
 
-    [Header("References")]
-    public Camera fpsCam;
+    [Header("Aim Settings")]
+    [SerializeField] private Vector3 hipLocalPos = new Vector3(0.2f, -0.2f, 0.6f);  // hip-fire position
+    [SerializeField] private Vector3 aimOffset = new Vector3(0f, -0.05f, 0.3f);   // aimed position
+    [SerializeField] private float aimDuration = 0.15f;
+    [SerializeField] private float aimedFOV = 50f;
+    private float defaultFOV;
+    private bool isAiming = false;
 
-    private float nextTimeToFire = 0f;
+    [SerializeField] private bool aimTest =true;
 
     [Header("Sway Settings")]
     [SerializeField] private float swayClamp = 0.02f;
@@ -46,13 +52,20 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Image reloadProgressImage;
     private CanvasGroup reloadUIGroup;
 
+    private Tween aimTween;
+    private Tween fovTween;
+
     private void Awake()
     {
-        originalLocalPos = transform.localPosition;
-        maxAmmo = reserveAmmo;
+        if (fpsCam != null && transform.parent != fpsCam.transform)
+            transform.SetParent(fpsCam.transform);
+
+        transform.localPosition = hipLocalPos;
 
         currentAmmo = magSize;
-        UpdateAmmoUI();
+
+        if (fpsCam != null)
+            defaultFOV = fpsCam.fieldOfView;
 
         if (reloadProgressImage != null)
         {
@@ -60,21 +73,27 @@ public class Weapon : MonoBehaviour
             if (reloadUIGroup != null)
                 reloadUIGroup.alpha = 0f;
         }
+
+        UpdateAmmoUI();
     }
 
     private void OnEnable()
     {
-        reloadProgressImage.fillAmount = 0f;
+        if (reloadProgressImage != null)
+            reloadProgressImage.fillAmount = 0f;
     }
 
     private void OnDisable()
     {
-        reloadProgressImage.fillAmount = 0f;
+        if (reloadProgressImage != null)
+            reloadProgressImage.fillAmount = 0f;
+
         StopAllCoroutines();
     }
 
     public void GunUpdate()
     {
+        HandleAiming();
         HandleSway();
 
         if (isReloading) return;
@@ -98,6 +117,46 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    // ------------------- AIM -------------------
+    private void HandleAiming()
+    {
+        if (Input.GetMouseButtonDown(1) || aimTest)
+            SetAiming(true);
+        else if (Input.GetMouseButtonUp(1))
+            SetAiming(false);
+    }
+
+    private void SetAiming(bool state)
+    {
+        if (isAiming == state) return;
+        isAiming = state;
+
+        aimTween?.Kill();
+        fovTween?.Kill();
+
+        Vector3 targetPos = isAiming ? aimOffset : hipLocalPos;
+        aimTween = transform.DOLocalMove(targetPos, aimDuration).SetEase(Ease.OutSine);
+
+        if (fpsCam != null)
+        {
+            float targetFOV = isAiming ? aimedFOV : defaultFOV;
+            fovTween = fpsCam.DOFieldOfView(targetFOV, aimDuration);
+        }
+    }
+
+    // ------------------- SWAY -------------------
+    private void HandleSway()
+    {
+        float mouseX = Input.GetAxisRaw("Mouse X") * swayClamp;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * swayClamp;
+
+        Vector3 basePos = isAiming ? aimOffset : hipLocalPos;
+        Vector3 targetPos = basePos + new Vector3(-mouseX, -mouseY, 0);
+
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, Time.deltaTime * swaySmooth);
+    }
+
+    // ------------------- SHOOT -------------------
     private void Shoot()
     {
         if (currentAmmo <= 0 || isReloading) return;
@@ -107,57 +166,50 @@ public class Weapon : MonoBehaviour
 
         nextTimeToFire = Time.time + 1f / fireRate;
 
-        // Cancel previous tweens before applying new recoil
         Recoil();
 
-        // Raycast hit logic
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out RaycastHit hit, range))
         {
-            if(hit.transform == null) return;
+            if (hit.transform == null) return;
 
             if (hit.transform.TryGetComponent(out Health target))
             {
                 PhotonView targetView = target.GetComponent<PhotonView>();
                 if (targetView != null)
                 {
-                    // Send damage + shooter’s ActorNumber or NickName
-                    targetView.RPC("TakeDamage", RpcTarget.All, damage);//, PhotonNetwork.LocalPlayer.NickName);
+                    targetView.RPC("TakeDamage", RpcTarget.All, damage);
 
-                    // Instantiate hit particle effect
-                    if (hitParticleFlesh != null)
-                    {
-                        PhotonNetwork.Instantiate(hitParticleFlesh.name, hit.point, Quaternion.LookRotation(hit.normal));
-                    }
-
-                    if(damage > target.health)
+                    if (damage > target.health)
                     {
                         RoomManager.Singleton.AddKill(PhotonNetwork.LocalPlayer.NickName);
                     }
+
+                    if (hitParticleFlesh != null)
+                        PhotonNetwork.Instantiate(hitParticleFlesh.name, hit.point, Quaternion.LookRotation(hit.normal));
                 }
-                
             }
             else
             {
                 if (hitParticle != null)
-                {
                     PhotonNetwork.Instantiate(hitParticle.name, hit.point, Quaternion.LookRotation(hit.normal));
-                }
             }
         }
-
     }
-    // // ------------------- Recoil -------------------
+
+    // ------------------- RECOIL -------------------
     private void Recoil()
     {
         transform.DOKill();
 
-        // Apply recoil: move slightly up and back
-        transform.DOLocalMove(originalLocalPos + new Vector3(0, recoilUp, -recoilBack), 0.05f)
-            .SetEase(Ease.OutQuad)
+        Vector3 basePos = isAiming ? aimOffset : hipLocalPos;
+        float recoilMultiplier = isAiming ? 0.3f : 1f;
+
+        Vector3 recoilPos = basePos + new Vector3(0, recoilUp * recoilMultiplier, -recoilBack * recoilMultiplier);
+
+        transform.DOLocalMove(recoilPos, 0.05f).SetEase(Ease.OutQuad)
             .OnComplete(() =>
             {
-                // Return smoothly to original position
-                transform.DOLocalMove(originalLocalPos, recoverSpeed).SetEase(Ease.OutQuad);
+                transform.DOLocalMove(basePos, recoverSpeed).SetEase(Ease.OutQuad);
             });
     }
 
@@ -167,7 +219,6 @@ public class Weapon : MonoBehaviour
         if (isReloading || currentAmmo == magSize || reserveAmmo <= 0) yield break;
 
         isReloading = true;
-        Debug.Log("Reloading...");
 
         if (reloadUIGroup != null)
             reloadUIGroup.DOFade(1f, 0.2f);
@@ -186,8 +237,6 @@ public class Weapon : MonoBehaviour
         currentAmmo += ammoToReload;
         reserveAmmo -= ammoToReload;
 
-        Debug.Log($"Reloaded. Current Ammo: {currentAmmo} | Reserve: {reserveAmmo}");
-
         if (reloadProgressImage != null)
             reloadProgressImage.fillAmount = 0f;
 
@@ -197,20 +246,12 @@ public class Weapon : MonoBehaviour
         isReloading = false;
     }
 
-    // ------------------- SWAY -------------------
-    private void HandleSway()
-    {
-        float mouseX = Input.GetAxisRaw("Mouse X") * swayClamp;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * swayClamp;
-
-        Vector3 targetPos = originalLocalPos + new Vector3(-mouseX, -mouseY, 0);
-        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, Time.deltaTime * swaySmooth);
-    }
-
     // ------------------- AMMO UI -------------------
     private void UpdateAmmoUI()
     {
         if (ammoDisplay != null)
             ammoDisplay.text = $"{currentAmmo} / {reserveAmmo}";
     }
+
+    public bool IsAiming => isAiming;
 }

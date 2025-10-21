@@ -18,8 +18,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private string playerNickname = "Noob";
 
-    public int kills;
-    public int deaths;
+    [HideInInspector] public int kills;
+    [HideInInspector] public int deaths;
+
+    [Space]
+    [Header("Room Settings")]
+    public string roomNameToJoin = "Room1";
 
     private void Awake()
     {
@@ -46,24 +50,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if (nameSelectScreen != null) nameSelectScreen.SetActive(false);
         if (loadingScreen != null) loadingScreen.SetActive(true);
 
-        Debug.Log("Connecting to Photon...");
-        PhotonNetwork.NickName = playerNickname; // assign nickname before connecting
-        PhotonNetwork.ConnectUsingSettings();
-    }
-
-    // ------------------- PHOTON CALLBACKS -------------------
-
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log("Connected to Master Server");
-        PhotonNetwork.NickName = playerNickname;
-        PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby()
-    {
-        Debug.Log("Joined Lobby");
-
+        //Debug.Log("Connecting to Photon...");
+        //PhotonNetwork.NickName = playerNickname; // assign nickname before connecting
         RoomOptions roomOptions = new RoomOptions
         {
             MaxPlayers = 10,
@@ -71,8 +59,31 @@ public class RoomManager : MonoBehaviourPunCallbacks
             IsOpen = true
         };
 
-        PhotonNetwork.JoinOrCreateRoom("Room1", roomOptions, TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, roomOptions, TypedLobby.Default);
     }
+
+    // ------------------- PHOTON CALLBACKS -------------------
+
+    //public override void OnConnectedToMaster()
+    //{
+    //    Debug.Log("Connected to Master Server");
+    //    PhotonNetwork.NickName = playerNickname;
+    //    PhotonNetwork.JoinLobby();
+    //}
+
+    //public override void OnJoinedLobby()
+    //{
+    //    Debug.Log("Joined Lobby");
+
+    //    RoomOptions roomOptions = new RoomOptions
+    //    {
+    //        MaxPlayers = 10,
+    //        IsVisible = true,
+    //        IsOpen = true
+    //    };
+
+    //    PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, roomOptions, TypedLobby.Default);
+    //}
 
     public override void OnJoinedRoom()
     {

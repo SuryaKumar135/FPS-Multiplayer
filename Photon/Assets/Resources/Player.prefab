@@ -653,8 +653,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4849596563192714717}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.17000008, y: -0.16, z: 0.44}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1236,15 +1236,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 634847978797679512, guid: 55b1fd5f577255c4a8338b61385780ec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.185
       objectReference: {fileID: 0}
     - target: {fileID: 634847978797679512, guid: 55b1fd5f577255c4a8338b61385780ec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.139
       objectReference: {fileID: 0}
     - target: {fileID: 634847978797679512, guid: 55b1fd5f577255c4a8338b61385780ec, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.387
       objectReference: {fileID: 0}
     - target: {fileID: 634847978797679512, guid: 55b1fd5f577255c4a8338b61385780ec, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1252,15 +1252,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 634847978797679512, guid: 55b1fd5f577255c4a8338b61385780ec, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 634847978797679512, guid: 55b1fd5f577255c4a8338b61385780ec, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 634847978797679512, guid: 55b1fd5f577255c4a8338b61385780ec, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 634847978797679512, guid: 55b1fd5f577255c4a8338b61385780ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1319,9 +1319,14 @@ MonoBehaviour:
   recoilUp: 0.1
   recoilBack: 0.2
   recoverSpeed: 0.15
-  magSize: 7
-  reserveAmmo: 120
   fpsCam: {fileID: 1097397417562725466}
+  magSize: 7
+  reserveAmmo: 113
+  hipLocalPos: {x: 0.2, y: -0.2, z: 0.6}
+  aimOffset: {x: 0, y: -0.07, z: 0.3}
+  aimDuration: 0.15
+  aimedFOV: 50
+  aimTest: 0
   swayClamp: 0.02
   swaySmooth: 6
   hitParticleFlesh: {fileID: 4021103657954561961, guid: e6d0c10aeb3a2544ca8ec10cbe9bf01a, type: 3}
@@ -1338,11 +1343,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1580511185713615653, guid: e255ad384286fce4f876c07a7e5e1d25, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.13599992
       objectReference: {fileID: 0}
     - target: {fileID: 1580511185713615653, guid: e255ad384286fce4f876c07a7e5e1d25, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.139
       objectReference: {fileID: 0}
     - target: {fileID: 1580511185713615653, guid: e255ad384286fce4f876c07a7e5e1d25, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1419,11 +1424,16 @@ MonoBehaviour:
   fireRate: 1
   reloadTime: 2
   recoilUp: 0.1
-  recoilBack: 1
+  recoilBack: 0.19
   recoverSpeed: 0.15
-  magSize: 5
-  reserveAmmo: 25
   fpsCam: {fileID: 1097397417562725466}
+  magSize: 5
+  reserveAmmo: 20
+  hipLocalPos: {x: 0.2, y: -0.2, z: 0.6}
+  aimOffset: {x: 0.007, y: -0.061, z: 0.5}
+  aimDuration: 0.15
+  aimedFOV: 50
+  aimTest: 0
   swayClamp: 0.02
   swaySmooth: 6
   hitParticleFlesh: {fileID: 4021103657954561961, guid: e6d0c10aeb3a2544ca8ec10cbe9bf01a, type: 3}
@@ -1448,11 +1458,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1709849256630245519, guid: 91ae9411a4d02cf41964a3f538884b64, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.13599992
       objectReference: {fileID: 0}
     - target: {fileID: 1709849256630245519, guid: 91ae9411a4d02cf41964a3f538884b64, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.139
       objectReference: {fileID: 0}
     - target: {fileID: 1709849256630245519, guid: 91ae9411a4d02cf41964a3f538884b64, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1515,12 +1525,17 @@ MonoBehaviour:
   range: 100
   fireRate: 15
   reloadTime: 2
-  recoilUp: 0.05
+  recoilUp: 0.01
   recoilBack: 0.1
   recoverSpeed: 0.15
-  magSize: 30
-  reserveAmmo: 120
   fpsCam: {fileID: 1097397417562725466}
+  magSize: 30
+  reserveAmmo: 0
+  hipLocalPos: {x: 0.2, y: -0.2, z: 0.6}
+  aimOffset: {x: 0.013, y: -0.09, z: 0.1}
+  aimDuration: 0.15
+  aimedFOV: 50
+  aimTest: 0
   swayClamp: 0.02
   swaySmooth: 6
   hitParticleFlesh: {fileID: 4021103657954561961, guid: e6d0c10aeb3a2544ca8ec10cbe9bf01a, type: 3}
@@ -1550,15 +1565,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7851222393873837661, guid: 1fd930a48e8659c4ca2bb28f913b3182, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.002
       objectReference: {fileID: 0}
     - target: {fileID: 7851222393873837661, guid: 1fd930a48e8659c4ca2bb28f913b3182, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.105
       objectReference: {fileID: 0}
     - target: {fileID: 7851222393873837661, guid: 1fd930a48e8659c4ca2bb28f913b3182, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.235
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7851222393873837661, guid: 1fd930a48e8659c4ca2bb28f913b3182, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1566,7 +1581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7851222393873837661, guid: 1fd930a48e8659c4ca2bb28f913b3182, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -9.3132246e-10
       objectReference: {fileID: 0}
     - target: {fileID: 7851222393873837661, guid: 1fd930a48e8659c4ca2bb28f913b3182, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1574,7 +1589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7851222393873837661, guid: 1fd930a48e8659c4ca2bb28f913b3182, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -9.3132246e-10
       objectReference: {fileID: 0}
     - target: {fileID: 7851222393873837661, guid: 1fd930a48e8659c4ca2bb28f913b3182, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1622,12 +1637,17 @@ MonoBehaviour:
   range: 100
   fireRate: 20
   reloadTime: 2
-  recoilUp: 0.01
-  recoilBack: 0.1
+  recoilUp: 0
+  recoilBack: 0.05
   recoverSpeed: 0.1
+  fpsCam: {fileID: 1097397417562725466}
   magSize: 25
   reserveAmmo: 120
-  fpsCam: {fileID: 1097397417562725466}
+  hipLocalPos: {x: 0.2, y: -0.2, z: 0.6}
+  aimOffset: {x: -0.002, y: -0.104, z: 0.1}
+  aimDuration: 0.15
+  aimedFOV: 50
+  aimTest: 0
   swayClamp: 0.02
   swaySmooth: 6
   hitParticleFlesh: {fileID: 4021103657954561961, guid: e6d0c10aeb3a2544ca8ec10cbe9bf01a, type: 3}
@@ -1652,11 +1672,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8005316354712685914, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.13599992
       objectReference: {fileID: 0}
     - target: {fileID: 8005316354712685914, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.139
       objectReference: {fileID: 0}
     - target: {fileID: 8005316354712685914, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1724,12 +1744,17 @@ MonoBehaviour:
   range: 100
   fireRate: 15
   reloadTime: 2
-  recoilUp: 0.05
+  recoilUp: 0.01
   recoilBack: 0.1
   recoverSpeed: 0.15
-  magSize: 30
-  reserveAmmo: 120
   fpsCam: {fileID: 1097397417562725466}
+  magSize: 30
+  reserveAmmo: 60
+  hipLocalPos: {x: 0.2, y: -0.2, z: 0.6}
+  aimOffset: {x: 0, y: -0.1, z: 0.3}
+  aimDuration: 0.15
+  aimedFOV: 50
+  aimTest: 0
   swayClamp: 0.02
   swaySmooth: 6
   hitParticleFlesh: {fileID: 4021103657954561961, guid: e6d0c10aeb3a2544ca8ec10cbe9bf01a, type: 3}
