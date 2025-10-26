@@ -40,13 +40,15 @@ public class Health : MonoBehaviour
             if (isLocalPlayer)
             {
                 RoomManager.Singleton.AddDeath();
+                RoomManager.Singleton.SpawnPlayer();
+                PhotonNetwork.Destroy(gameObject); 
             }
 
             // Destroy or respawn
-            if (isLocalPlayer)
-                RoomManager.Singleton.SpawnPlayer();
+           // if (isLocalPlayer)
+                
 
-            Destroy(gameObject);
+           // Destroy(gameObject);
         }
 
         if (healthBar != null)

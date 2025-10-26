@@ -54,6 +54,9 @@ public class Weapon : MonoBehaviour
 
     private Tween aimTween;
     private Tween fovTween;
+    
+    [Header("SFX")]
+    [SerializeField] private AudioSource audioSource;
 
     private void Awake()
     {
@@ -85,10 +88,10 @@ public class Weapon : MonoBehaviour
 
     private void OnDisable()
     {
+        StopAllCoroutines();
         if (reloadProgressImage != null)
             reloadProgressImage.fillAmount = 0f;
 
-        StopAllCoroutines();
     }
 
     public void GunUpdate()
@@ -159,6 +162,11 @@ public class Weapon : MonoBehaviour
     // ------------------- SHOOT -------------------
     private void Shoot()
     {
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+        
         if (currentAmmo <= 0 || isReloading) return;
 
         currentAmmo--;
