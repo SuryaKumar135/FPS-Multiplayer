@@ -16,6 +16,9 @@ public class PlayerSetup : MonoBehaviour
 
     [SerializeField] private Transform nameTransform;
 
+    [SerializeField] private GameObject nonLocalModel;
+    
+    [SerializeField] private NonLocalPlayerAnimation nonLocalPlayerAnimation ;
     public void IsLocalPlayer()
     {
         playerMovement.enabled = true;
@@ -25,6 +28,11 @@ public class PlayerSetup : MonoBehaviour
 
         //disable for your self
         playerNameText.enabled = false;
+        
+        //Non local 
+        nonLocalModel.gameObject.SetActive(false);
+        
+        nonLocalPlayerAnimation.enabled = false;
     }
 
     [PunRPC]
