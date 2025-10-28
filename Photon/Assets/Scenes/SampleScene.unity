@@ -119,6 +119,59 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &82418085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 82418087}
+  - component: {fileID: 82418086}
+  m_Layer: 0
+  m_Name: FlyWeightFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &82418086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82418085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c57c5469b385154e910076a9f1bfbb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Flyweight.FlyweightFactory
+  pools:
+  - tag: BodyHit
+    prefab: {fileID: 4021103657954561961, guid: e6d0c10aeb3a2544ca8ec10cbe9bf01a, type: 3}
+    size: 30
+    isNetworked: 1
+  - tag: NormalHit
+    prefab: {fileID: 5880797563127281583, guid: ce2bd1f3e70922c479a1ff004a0ca3d3, type: 3}
+    size: 30
+    isNetworked: 1
+--- !u!4 &82418087
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82418085}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1592, y: -0, z: 2.45343}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &133312951
 GameObject:
   m_ObjectHideFlags: 0
@@ -6194,3 +6247,4 @@ SceneRoots:
   - {fileID: 2109699170}
   - {fileID: 1928553385}
   - {fileID: 542757940}
+  - {fileID: 82418087}

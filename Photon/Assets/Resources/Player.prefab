@@ -6721,8 +6721,6 @@ MonoBehaviour:
   aimTest: 0
   swayClamp: 0.02
   swaySmooth: 6
-  hitParticleFlesh: {fileID: 4021103657954561961, guid: e6d0c10aeb3a2544ca8ec10cbe9bf01a, type: 3}
-  hitParticle: {fileID: 5880797563127281583, guid: ce2bd1f3e70922c479a1ff004a0ca3d3, type: 3}
   ammoDisplay: {fileID: 861452727463383491}
   reloadProgressImage: {fileID: 2995479084216415777}
   audioSource: {fileID: 8702628865584392357}
@@ -6929,8 +6927,6 @@ MonoBehaviour:
   aimTest: 0
   swayClamp: 0.02
   swaySmooth: 6
-  hitParticleFlesh: {fileID: 4021103657954561961, guid: e6d0c10aeb3a2544ca8ec10cbe9bf01a, type: 3}
-  hitParticle: {fileID: 5880797563127281583, guid: ce2bd1f3e70922c479a1ff004a0ca3d3, type: 3}
   ammoDisplay: {fileID: 861452727463383491}
   reloadProgressImage: {fileID: 2995479084216415777}
   audioSource: {fileID: 7557039015361594816}
@@ -7132,8 +7128,6 @@ MonoBehaviour:
   aimTest: 0
   swayClamp: 0.02
   swaySmooth: 6
-  hitParticleFlesh: {fileID: 4021103657954561961, guid: e6d0c10aeb3a2544ca8ec10cbe9bf01a, type: 3}
-  hitParticle: {fileID: 5880797563127281583, guid: ce2bd1f3e70922c479a1ff004a0ca3d3, type: 3}
   ammoDisplay: {fileID: 861452727463383491}
   reloadProgressImage: {fileID: 2995479084216415777}
   audioSource: {fileID: 2507208571601874856}
@@ -7345,8 +7339,6 @@ MonoBehaviour:
   aimTest: 0
   swayClamp: 0.02
   swaySmooth: 6
-  hitParticleFlesh: {fileID: 4021103657954561961, guid: e6d0c10aeb3a2544ca8ec10cbe9bf01a, type: 3}
-  hitParticle: {fileID: 5880797563127281583, guid: ce2bd1f3e70922c479a1ff004a0ca3d3, type: 3}
   ammoDisplay: {fileID: 861452727463383491}
   reloadProgressImage: {fileID: 2995479084216415777}
   audioSource: {fileID: 2992608047291297396}
@@ -7553,8 +7545,6 @@ MonoBehaviour:
   aimTest: 0
   swayClamp: 0.02
   swaySmooth: 6
-  hitParticleFlesh: {fileID: 4021103657954561961, guid: e6d0c10aeb3a2544ca8ec10cbe9bf01a, type: 3}
-  hitParticle: {fileID: 5880797563127281583, guid: ce2bd1f3e70922c479a1ff004a0ca3d3, type: 3}
   ammoDisplay: {fileID: 861452727463383491}
   reloadProgressImage: {fileID: 2995479084216415777}
   audioSource: {fileID: 2194739604483819919}

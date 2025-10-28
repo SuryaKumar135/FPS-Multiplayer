@@ -44,8 +44,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float swaySmooth = 6f;
 
     [Header("Effects")]
-    [SerializeField] private GameObject hitParticleFlesh;
-    [SerializeField] private GameObject hitParticle;
+    // [SerializeField] private GameObject hitParticleFlesh;
+    // [SerializeField] private GameObject hitParticle;
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI ammoDisplay;
@@ -192,14 +192,17 @@ public class Weapon : MonoBehaviour
                         RoomManager.Singleton.AddKill(PhotonNetwork.LocalPlayer.NickName);
                     }
 
-                    if (hitParticleFlesh != null)
-                        PhotonNetwork.Instantiate(hitParticleFlesh.name, hit.point, Quaternion.LookRotation(hit.normal));
+                    // if (hitParticleFlesh != null)
+                    //     PhotonNetwork.Instantiate(hitParticleFlesh.name, hit.point, Quaternion.LookRotation(hit.normal));
+                    ObjectPool.Instance.SpawnFromPool("BodyHit", hit.point, Quaternion.LookRotation(hit.normal));
+
                 }
             }
             else
             {
-                if (hitParticle != null)
-                    PhotonNetwork.Instantiate(hitParticle.name, hit.point, Quaternion.LookRotation(hit.normal));
+                // if (hitParticle != null)
+                //     PhotonNetwork.Instantiate(hitParticle.name, hit.point, Quaternion.LookRotation(hit.normal));
+                ObjectPool.Instance.SpawnFromPool("NormalHit", hit.point, Quaternion.LookRotation(hit.normal));
             }
         }
     }
